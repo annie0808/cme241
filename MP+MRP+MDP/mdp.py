@@ -105,7 +105,7 @@ class MDP(MRP):
 
     # Get policy evaluation
     def eval_pol(self, policy: Mapping[S,Mapping[A, float]]) -> Mapping[S, float]:
-        return {state: self.get_mrp(policy).get_val_func()[i] for i, s in enumerate(self.nt_states_list)}
+        return {j: self.get_mrp(policy).get_val_func()[i] for i, j in enumerate(self.nt_states_list)}
 
     # Policy iteration 
     def iter_pol(self, policy: Mapping[S,Mapping[A, float]]) -> Tuple[Mapping[S,Mapping[A, float]], Mapping[S, float]]:
