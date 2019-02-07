@@ -164,19 +164,19 @@ if __name__ == '__main__':
     }
 
     reward = {
-            1: {
-                'a': 7.0,
-                'b': -2.0,
-                'c': 10.0
-            },
-            2: {
-                'a': 1.0,
-                'c': -1.2
-            },
-            3: {
-                'b':  0.0
-            }
+        1: {
+            'a': 7.0,
+            'b': -2.0,
+            'c': 10.0
+        },
+        2: {
+            'a': 1.0,
+            'c': -1.2
+        },
+        3: {
+            'b':  0.0
         }
+    }
 
     policy = {
         1: {'a': 0.4, 'b': 0.6},
@@ -189,36 +189,6 @@ if __name__ == '__main__':
     print('States:', mdp_obj.get_states(), '\n')
     print('Transition Matrix:\n', mrp_obj.get_trans_matrix, '\n')
     print('MRP Value Function:\n', mrp_obj.get_value_func())
-    print(mdp_obj.all_states)
-    print(mdp_obj.transitions)
-    print(mdp_obj.rewards)
-    terminal = mdp_obj.get_terminal_states()
-    print(terminal)
-    policy_data = {
-        1: {'a': 0.4, 'b': 0.6},
-        2: {'a': 0.7, 'c': 0.3},
-        3: {'b': 1.0}
-    }
-
-    mdp_data = {
-        1: {
-            'a': ({1: 0.2, 2: 0.6, 3: 0.2}, 7.0),
-            'b': ({1: 0.6, 2: 0.3, 3: 0.1}, -2.0),
-            'c': ({1: 0.1, 2: 0.2, 3: 0.7}, 10.0)
-        },
-        2: {
-            'a': ({1: 0.1, 2: 0.6, 3: 0.3}, 1.0),
-            'c': ({1: 0.6, 2: 0.2, 3: 0.2}, -1.2)
-        },
-        3: {
-            'b': ({3: 1.0}, 0.0)
-        }
-    }
-
-    mdp_obj = MDP(mdp_data, gamma=0.9)
-    print('States:', mdp_obj.states, '\n')
-    print('Transition:\n', mrp_obj.transitions, '\n')
-    print('MDP State and Reward:\n', mdp_obj.s_r())
 
     mrp_obj = mdp_obj.get_mrp(policy_data)
     print("MRP with policy: \n")
