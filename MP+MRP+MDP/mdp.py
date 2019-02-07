@@ -75,11 +75,8 @@ class MDP(MRP):
                     
         return MRP(transition, reward, self.gamma)
     
-    # Get value function with policy
-    def val_pol(self, policy: Mapping[S,Mapping[A, float]]) -> Mapping[S, float]:
-        return {state: self.get_mrp(policy).get_val_func()[i] for i, s in enumerate(self.nt_states_list)}
     
-    # Get to the next valye              
+    # To find best policy pi            
     def iter_val(self) -> Tuple[Mapping[S,Mapping[A, float]], Mapping[S, float]]:
         value = {s: 0 for s in self.states}
         new_v = value
@@ -106,7 +103,11 @@ class MDP(MRP):
             
         return policy, value
 
-    # Get to the next policy   
+    # Get policy evaluation
+    def eval_pol(self, policy: Mapping[S,Mapping[A, float]]) -> Mapping[S, float]:
+        return {state: self.get_mrp(policy).get_val_func()[i] for i, s in enumerate(self.nt_states_list)}
+
+    # Policy iteration 
     def iter_pol(self, policy: Mapping[S,Mapping[A, float]]) -> Tuple[Mapping[S,Mapping[A, float]], Mapping[S, float]]:
         policy = None
         new_p = policy
