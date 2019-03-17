@@ -39,7 +39,13 @@ class MonteCarlo():
             state = next_state        
             
         return res
-    
+
+    def get_returns(self, reward: Sequence[float]) -> list:
+        T = len(reward)
+        Gamma = pow(self.mdp_rep.gamma, np.arange(T))
+        G = [np.dot(Gamma[:T-i],reward[i:]) for i in range(T)]
+        return G
+            
     def get_value_func_dict(self, pol: SAf) -> Mapping[S, float]:
         sa_dict = self.mdp_rep.state_action_dict
         counts_dict = {s: 0 for s in self.mdp_rep.state_action_dict.keys()}
@@ -64,8 +70,3 @@ class MonteCarlo():
         
         return vf_dict
         
-    def get_returns(self, reward: Sequence[float]) -> list:
-        T = len(reward)
-        Gamma = np.power(self.mdp_rep.gamma, np.arange(T))
-        G = [np.dot(Gamma[:T-i],reward[i:]) for i in range(T)]
-        return G
