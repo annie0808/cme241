@@ -45,7 +45,7 @@ class MonteCarlo():
         Gamma = pow(self.mdp_rep.gamma, np.arange(T))
         G = [np.dot(Gamma[:T-i],reward[i:]) for i in range(T)]
         return G
-            
+
     def get_value_func_dict(self, pol: SAf) -> Mapping[S, float]:
         sa_dict = self.mdp_rep.state_action_dict
         counts_dict = {s: 0 for s in self.mdp_rep.state_action_dict.keys()}
@@ -69,4 +69,45 @@ class MonteCarlo():
             episodes += 1
         
         return vf_dict
+
+if __name__ == '__main__':
+    from processes.mdp_refined import MDPRefined
+    mdp_refined_data = {
+        1: {
+            'a': {1: (0.3, 9.2), 2: (0.6, 4.5), 3: (0.1, 5.0)},
+            'b': {2: (0.3, -0.5), 3: (0.7, 2.6)},
+            'c': {1: (0.2, 4.8), 2: (0.4, -4.9), 3: (0.4, 0.0)}
+        },
+        2: {
+            'a': {1: (0.3, 9.8), 2: (0.6, 6.7), 3: (0.1, 1.8)},
+            'c': {1: (0.2, 4.8), 2: (0.4, 9.2), 3: (0.4, -8.2)}
+        },
+        3: {
+            'a': {3: (1.0, 0.0)},
+            'b': {3: (1.0, 0.0)}
+        }
+    }
+    gamma_val = 1.0
+    mdp_ref_obj1 = MDPRefined(mdp_refined_data, gamma_val)
+    mdp_rep_obj = mdp_ref_obj1.get_mdp_rep_for_rl_tabular()
+
+    policy_data = {
+        1: {'a': 0.4, 'b': 0.6},
+        2: {'a': 0.7, 'c': 0.3},
+        3: {'b': 1.0}
+    }
+
+    first_visit_flag = True
+	episodes_limit = 1000
+	max_steps_val = 1000
+	mc_obj = MonteCarlo(mdp_rep_obj,first_visit_flag,episodes_limit,max_steps_val)
+
+	pol_obj = Policy(policy_data)
+
+    this_mc_path = mc_obj.get_mc_path(pol_obj, 1)
+    print(this_mc_path)
+
+    this_vf_dict = mc_obj.get_value_func_dict(pol_obj)
+    print(this_vf_dict)
+
         
