@@ -1,4 +1,4 @@
-from typing import Optional, Tuple, Sequence, Mapping, Callableß
+from typing import Optional, Tuple, Sequence, Mapping, Callable
 from mdp_rl_tabular import MDPForRLTabular
 from helper_funcs import A, S, SAf, get_rv_gen_func_single
 import numpy as np
