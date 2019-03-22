@@ -80,4 +80,3 @@ if __name__ == '__main__':
                 T,actor_lambda_val,critic_lambda_val,
                 score_func,sample_actions_gen,
                 critic_spec=fa_spec,policy_spec)
-    pg.get_optimal_det_policy_func()
