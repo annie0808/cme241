@@ -43,7 +43,7 @@ def gen_s_r(state: [int,float], action:[float,float], threshold: float, ls: int,
     t, W_t = state
     consumption = action[0]
     allocation = action[1]
-    risky_frac = 1. - allocation
+    risky_frac = 1.0 - allocation
     allocated = np.insert(np.array(risky_frac), 0, allocation)
     ret = np.hstack((np.full((ls, 1), allocation),ret_gen_func(ls)))
     terminate = [W_t*(1-consumption)*max(threshold, allocated.dot(np.exp(sample))) for sample in ret]
